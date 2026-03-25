@@ -27,12 +27,12 @@ def test_create_user_with_invalid_email():
         "email": users[0]["email"],
     }
     response = client.post("/api/v1/user", json=duplicated_user)
-    assert response.status_code == 400
+    assert response.status_code == 409
 
 
 def test_delete_user():
     response = client.delete("/api/v1/user", params={"email": users[1]["email"]})
-    assert response.status_code == 200
+    assert response.status_code == 204
 
     get_response = client.get("/api/v1/user", params={"email": users[1]["email"]})
     assert get_response.status_code == 404
